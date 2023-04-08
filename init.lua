@@ -223,7 +223,6 @@ local rift_return = function(player, pos)
 
 		--rare blow up of origin rift..before arrival so don't kill
 		if blow_chance <= 1 then
-			minetest.set_node(target_coords, {name = "air"})
 			--(boom only seems to work if called twice... not sure why)
 			tnt.boom(target_coords, {
 				radius = 2,
@@ -233,6 +232,8 @@ local rift_return = function(player, pos)
 				radius = 5,
 				damage_radius = 5,
 			})
+			minetest.set_node(pos, {name = "luckyportal:luckyportal"})
+			minetest.set_node(target_coords, {name = "luckyportal:luckyportal"})
 		end
 
 
@@ -253,7 +254,8 @@ local rift_return = function(player, pos)
 				radius = 10,
 				damage_radius = 10,
 			})
-			minetest.set_node(pos, {name = "air"})
+			minetest.set_node(pos, {name = "luckyportal:luckyportal"})
+			minetest.set_node(target_coords, {name = "luckyportal:luckyportal"})
 		end
 	end
 end
@@ -411,7 +413,7 @@ minetest.register_abm{
 						damage_radius = 10,
 					})
 		flash2(pos)
-		minetest.set_node(pos, {name = "air"})
+		minetest.set_node(pos, {name = "luckyportal:luckyportal"})
 end,
 }
 
@@ -421,8 +423,8 @@ end,
 minetest.register_craft({
 	output = "luckyportal:luckyportal 1",
 	recipe = {
-		{"default:coal_lump", "", "default:coal_lump"},
-		{"", "default:mese_crystal_fragment", ""},
-		{"default:mese_crystal_fragment", "default:coal_lump", "default:mese_crystal_fragment"}
+		{"default:mese", "default:diamond", "default:mese"},
+		{"default:mese", "default:coalblock", "default:mese"},
+		{"default:mese", "default:mese", "default:mese"}
 	}
 })
